@@ -1,0 +1,66 @@
+- the 3D part designs are in Gpc::D:\Graphical Design\Projects\3DPrinting\Projects\RoboLED
+- I started designing the electronics in Fritzing (RoboLed.fzz)
+   - The design from Fritzing can be submitted to OSH park for fabrication
+
+LED fan control ********************************************************************************
+   - I started with the Fan control which is a copy of the Fan used to cool the Raspberry Pi
+      - WebMonkey::D:\RaspBerryPi\IO\Fan\FanSchema.jpg
+      - Gpc::D:\Projects\Electronica\RaspBerryPi\IO\Fan\FanSchema.jpg
+
+LED brithness control **************************************************************************
+   - The I added the power control for the LED which is a copy of the PID chopper project
+      - edX Introduction to Control System Design
+
+LED temperture control *************************************************************************
+   - The KY028 temperture sensor is connected to the A0 analog input
+      - needs further testing
+
+PS3 Controller *********************************************************************************
+   - tested with python see the D:\Projects\PS3_Controller project
+   - found a NodeJS module to hook it into the NodeJS and JohnnyFive web interface
+      - https://github.com/rdepena/node-dualshock-controller
+
+WebInterface control ****************************************************************************
+   - the web interface is going to be based on the PID chopper project
+      - https://github.com/gjgjwmertens/LedBlinkJohhny5/blob/master/Notes.txt (yes there is a typo in Johnny ;)
+         - D:\Projects\BlinkLedJohnny5\git
+         - /home/pi/Documents/NodeJS_Projects/LedBlinkJohnny5
+   - I need to setup a new project to build the RoboLed interface
+
+DRV8825 driver **********************************************************************************
+   - https://www.pololu.com/blog/484/video-setting-the-current-limit-on-pololu-stepper-motor-driver-carriers
+   - https://www.pololu.com/product/2133
+   - D:\RaspBerryPi\IO\Steppers\DRV8825
+   - Before using the driver the Vref needs to be adjusted for the motor current
+      - Current Limit = VREF × 2
+      - for the 28BYJ-48: 100mA => Vref = 50mV
+   - Some more details need to be sorted
+      - adjust Vref
+         - connect the motor power supply
+         - measure the Vref voltage and set it to 50mV
+      - stepping mode adjust
+         - add jumper pins to the circuitboard and add pull-up resistor (optional, per default the driver is in full step mode.
+            this is ok for this project)
+         - the driver has internal 100k pull-down resistors
+      - sleep and fault control (see https://www.pololu.com/product/2133 Control inputs)
+      - check ISEN inputs
+         - they are thaken care of by the driver board
+      - decay mode is left open -> mixed mode
+      - enable pin is ok per default (internal 100k pull-down)
+
+28BYJ-48 Stepper Motor **************************************************************************
+   - http://42bots.com/tutorials/28byj-48-stepper-motor-with-uln2003-driver-and-arduino-uno/
+   - http://www.electronicsmayhem.com/?p=13
+   - motor current 100mA
+   - the 28BYJ-48 motor is unipolar (5 wire) and the DRV8825 is for bipolar steppers (4 wire)
+      - we can cut the center wire see http://www.electronicsmayhem.com/?p=13
+         - open up the blue cap and cut the circuit board conduit for the red wire
+         - D:\Projects\RoboLed\28BYJ_motorcutpath.jpg
+   - !! a better solution is to use a unipolar driver like the L297 with a ULN2075B, ULN2003 or L298N
+      - see D:\Projects\Electronica\Docs\Steppers\L297_ApplicationNote.pdf
+      - D:\Projects\Electronica\Projects\RoboLed\Unipolar_driver_circuit_ds2003.png
+
+AbsoluteOrientationIMU 9DOF **********************************************************************
+   - on the LED head i want to use the adafruit 9DOF_AbsoluteOrientationIMU
+      - see D:\Projects\Electronica\Docs\9DOF_AbsoluteOrientationIMU_FusionBreakout_BNO055
+      - this is is 9 Degree Of Freedom sensor for absolute positioning

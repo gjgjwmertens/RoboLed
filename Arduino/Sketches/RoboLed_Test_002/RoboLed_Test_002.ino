@@ -47,7 +47,7 @@ void setup() {
 
   sensors.begin();
   analogWrite(FAN_001_PWM_PIN, 25);
-  analogWrite(LED_001_PWM_PIN, 25);
+  analogWrite(LED_001_PWM_PIN, 255);
 }
 
 void loop() {

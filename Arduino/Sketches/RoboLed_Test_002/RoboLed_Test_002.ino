@@ -9,7 +9,7 @@
 #define FAN_001_PWM_PIN       3
 #define FAN_001_TACHO_PIN     2
 #define TEMP_001_DATA_PIN     7
-#define LED_001_PWM_PIN       11
+#define LED_001_PWM_PIN       9
 
 OneWire oneWire(TEMP_001_DATA_PIN);
 DallasTemperature sensors(&oneWire);
@@ -47,7 +47,7 @@ void setup() {
 
   sensors.begin();
   analogWrite(FAN_001_PWM_PIN, 25);
-  analogWrite(LED_001_PWM_PIN, 255);
+  analogWrite(LED_001_PWM_PIN, 0);
 }
 
 void loop() {

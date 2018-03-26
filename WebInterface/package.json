@@ -1,0 +1,26 @@
+{
+  "name": "RoboLed",
+  "version": "1.0.0",
+  "description": "LED on a robot arm",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app",
+    "start": "nodemon -e js,ejs,css exp_app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gjgjwmertens/RoboLed"
+  },
+  "author": "G.J. Mertens",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "johnny-five": "latest",
+    "jquery": "latest",
+    "nodemon": "latest",
+    "reload": "latest",
+    "socket.io": "latest"
+  }
+}

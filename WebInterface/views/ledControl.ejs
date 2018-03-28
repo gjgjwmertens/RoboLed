@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <% include templates/head.ejs %>
+   </head>
+
+   <body id="<%= pageID %>">
+      <div class="jumbotron">
+         <h1 class="display-4">LED Control</h1>
+      </div>
+      <div class="container">
+         <button type="button" class="btn btn-success" id="led_on_btn_id">Led On</button>
+         <button type="button" class="btn btn-danger" id="led_off_btn_id">Led Off</button>
+      </div>
+   </body>
+
+   <% include templates/script.ejs %>
+   <script>
+      console.log($().jquery);
+      function led_on_feedback(data) {
+         console.log(data);
+      };
+
+      $(function() {
+         $('#led_on_btn_id').on('click', function (e) {
+            console.log('Turn led on');
+            $.post(
+               '/ledControl',
+               {debug: 'help'},
+               led_on_feedback
+            )
+               .done(function(data) {
+                  console.log('Done data: ' + data);
+               })
+               .fail(function(data) {
+                  console.log('Fail data: ' + data);
+               })
+               .always(function(data) {
+                  console.log('Always data: ' + data);
+               });
+         });
+      })
+   </script>
+
+</html>
